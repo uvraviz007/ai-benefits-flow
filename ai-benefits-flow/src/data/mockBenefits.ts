@@ -16,13 +16,7 @@ category: 'Dental',
 coverage: 'Up to ₹20,000 annually',
 description: 'Includes crowns, root canals, and specialist visits.'
 },
-{
-id: 'b3',
-title: 'Vision Care',
-category: 'Vision',
-coverage: 'Frames & lenses reimbursed up to ₹3,000 every 2 years',
-description: 'Annual eye exam and partial reimbursement for glasses.'
-},
+ 
 {
 id: 'b4',
 title: 'Employee OPD Benefit',
@@ -40,4 +34,4 @@ description: 'Confidential counselling services via partner network.'
 ];
 
 
-export defaut
+export default mockBenefits;
