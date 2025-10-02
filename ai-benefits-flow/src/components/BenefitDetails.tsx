@@ -1,17 +1,4 @@
-import React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Stack,
-  CircularProgress,
-} from '@mui/material';
-import ReplayIcon from '@mui/icons-material/Replay';
+import React, { useState } from 'react';
 import type { Benefit } from '../types';
 
 interface Props {
@@ -20,84 +7,62 @@ interface Props {
   onRegenerate: () => void;
 }
 
-export default function BenefitDetails({ benefit, steps, onRegenerate }: Props) {
+const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate }) => {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        bgcolor: '#f3f4f6',
-        p: 2,
-      }}
-    >
-      <Card sx={{ maxWidth: 700, width: '100%', borderRadius: 3, boxShadow: 6 }}>
-        <CardContent>
-          {/* Start Over Button */}
-          <Box sx={{ mb: 2 }}>
-            <Button
-              variant="text"
-              color="secondary"
-              onClick={() => window.location.reload()}
-              size="small"
-            >
-              Start Over
-            </Button>
-          </Box>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="max-w-xl w-full bg-white rounded-xl shadow-lg p-6">
+        <div className="flex justify-between items-center mb-2">
+          <button
+            className="text-sm text-blue-600 hover:underline"
+            onClick={() => window.location.reload()}
+          >
+            Start Over
+          </button>
+          <button
+            className="text-sm text-gray-500 border px-2 py-1 rounded hover:bg-gray-100"
+            onClick={onRegenerate}
+          >
+            Regenerate Plan
+          </button>
+        </div>
+        <h2 className="text-2xl font-bold mb-1">{benefit.title}</h2>
+        <div className="text-gray-500 text-sm mb-2">Category: {benefit.category}</div>
+        <div className="mb-2 text-gray-700">{benefit.description}</div>
+        <div className="text-gray-400 text-xs mb-4">Coverage: {benefit.coverage}</div>
 
-          {/* Benefit Header */}
-          <Typography variant="h5" fontWeight="bold" gutterBottom>
-            {benefit.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Category: {benefit.category}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {benefit.description}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Coverage: {benefit.coverage}
-          </Typography>
-
-          {/* Step-by-Step Plan */}
-          <Box sx={{ mt: 4 }}>
-            <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-              Step-by-step plan
-            </Typography>
-
-            {!steps && (
-              <Stack direction="row" alignItems="center" spacing={1} mt={2}>
-                <CircularProgress size={20} />
-                <Typography variant="body2" color="text.secondary">
-                  Generating plan...
-                </Typography>
-              </Stack>
-            )}
-
+        <div className="mt-4">
+          <div className="flex items-center justify-between">
+            <span className="font-semibold text-lg">Step-by-step plan</span>
             {steps && (
-              <List dense sx={{ mt: 1 }}>
-                {steps.map((step, index) => (
-                  <ListItem key={index} sx={{ pl: 0 }}>
-                    <ListItemText primary={`${index + 1}. ${step}`} />
-                  </ListItem>
-                ))}
-              </List>
-            )}
-
-            {/* Regenerate Button */}
-            <Stack direction="row" spacing={2} mt={2}>
-              <Button
-                variant="outlined"
-                startIcon={<ReplayIcon />}
-                onClick={onRegenerate}
+              <button
+                className="ml-2 px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition"
+                onClick={() => setExpanded((prev) => !prev)}
               >
-                Regenerate plan
-              </Button>
-            </Stack>
-          </Box>
-        </CardContent>
-      </Card>
-    </Box>
+                {expanded ? 'Hide Steps' : 'View Steps'}
+              </button>
+            )}
+          </div>
+          {!steps && (
+            <div className="flex items-center gap-2 mt-4">
+              <span className="inline-block animate-spin h-5 w-5 border-2 border-blue-500 rounded-full border-t-transparent"></span>
+              <span className="text-gray-500 text-sm">Generating plan...</span>
+            </div>
+          )}
+          {steps && expanded && (
+            <ol className="mt-4 space-y-3 list-decimal list-inside">
+              {steps.map((step, idx) => (
+                <li key={idx} className="bg-gray-100 rounded p-3 text-gray-800">
+                  <span className="font-semibold">Step {idx + 1}:</span> {step}
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
+      </div>
+    </div>
   );
-}
+};
+
+export default BenefitDetails;
