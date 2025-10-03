@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import BenefitInput from './components/BenefitInput';
 import BenefitList from './components/BenefitList';
 import BenefitDetails from './components/BenefitDetails';
@@ -36,7 +36,6 @@ function App() {
           let titleMatch = content.match(/Plan Type: (.+)/);
           let coverageMatch = content.match(/Coverage Details: (.+)/);
           let descriptionMatch = content.match(/Health Benefit Card\*\*([\s\S]*?)### Action Plan:/);
-          let actionPlanMatch = content.match(/### Action Plan:[\s\S]*?(1\..*?)(?:\n2\..*?)(?:\n3\..*?)/);
 
           let title = titleMatch ? titleMatch[1].trim() : 'General Health';
           let coverage = coverageMatch ? coverageMatch[1].trim() : '';
@@ -71,7 +70,7 @@ function App() {
       let steps: string[] = [];
       if (result && result.choices && result.choices[0]?.message?.content) {
         // Parse steps from LLM response
-        steps = result.choices[0].message.content.split('\n').filter(s => s.trim().startsWith('Step'));
+        steps = result.choices[0].message.content.split('\n').filter((s: string) => s.trim().startsWith('Step'));
       }
       setActionPlan(steps.length > 0 ? steps : ['Could not parse plan, please regenerate.']);
       setScreen('details');
