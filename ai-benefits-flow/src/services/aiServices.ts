@@ -1,11 +1,10 @@
-
-const OPENROUTER_API_KEY = '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'; // Replace with your OpenRouter API key
+const OPENROUTER_API_KEY = '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';
 
 export async function getClassification(userInput: string) {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${'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'}`,
+      'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -13,25 +12,44 @@ export async function getClassification(userInput: string) {
       messages: [
         {
           role: 'system',
-          content: [
-            { type: 'text', text: 'You are a helpful assistant that classifies user health concerns into categories like Dental, Mental Health, and Vision. You then provide benefit cards with mock data, and generate 3-step action plans.' }
-          ]
+          content: `You are a helpful assistant for a healthcare benefits app. 
+Classify the user's health issue into one category: Dental, Mental Health, Vision, OPD only else nothing . 
+Then create 2 to 4 mock benefit cards with fields: title, coverage, description. 
+Finally, provide a 3-step action plan for each benefit. 
+Return the result strictly in this JSON format:
+{
+  "category": "<category>",
+  "benefits": [
+    {
+      "title": "...",
+      "coverage": "...",
+      "description": "..."
+    }
+  ],
+  "actionPlan": [
+    "Step 1: ...",
+    "Step 2: ...",
+    "Step 3: ..."
+  ]
+}`
         },
         {
           role: 'user',
-          content: [
-            { type: 'text', text: userInput }
-          ]
+          content: userInput
         }
       ]
     })
   });
-  const jsontext = await response.json();
-    // console.log('[DEBUG] getClassification API response:', jsontext);
-    // if (jsontext && jsontext.choices && jsontext.choices[0]?.message?.content) {
-    //   console.log('[DEBUG] LLM message content:', jsontext.choices[0].message.content);
-    // }
-  return jsontext;
+
+  const json = await response.json();
+  const content = json?.choices?.[0]?.message?.content;
+  try {
+    // Try parsing JSON directly from model output
+    return JSON.parse(content);
+  } catch {
+    console.warn('Failed to parse JSON from model, returning raw content.');
+    return content;
+  }
 }
 
 export async function getActionPlan(selectedBenefit: string) {
@@ -46,23 +64,24 @@ export async function getActionPlan(selectedBenefit: string) {
       messages: [
         {
           role: 'system',
-          content: [
-            { type: 'text', text: 'You are an assistant that creates clear 3-step action plans for availing health benefits.' }
-          ]
+          content: `You are an assistant that creates clear 3-step action plans for availing health benefits. 
+Return the result as JSON array of strings:
+["Step 1: ...", "Step 2: ...", "Step 3: ..."]`
         },
         {
           role: 'user',
-          content: [
-            { type: 'text', text: `Generate a 3-step action plan for the benefit: ${selectedBenefit}.` }
-          ]
+          content: `Generate a 3-step action plan for the benefit: ${selectedBenefit}.`
         }
       ]
     })
   });
-  const jsontext = await response.json();
-    // console.log('[DEBUG] getActionPlan API response:', jsontext);
-    // if (jsontext && jsontext.choices && jsontext.choices[0]?.message?.content) {
-    //   console.log('[DEBUG] LLM message content:', jsontext.choices[0].message.content);
-    // }
-  return jsontext;
+
+  const json = await response.json();
+  const content = json?.choices?.[0]?.message?.content;
+  try {
+    return JSON.parse(content);
+  } catch {
+    console.warn('Failed to parse JSON from model, returning raw content.');
+    return content;
+  }
 }

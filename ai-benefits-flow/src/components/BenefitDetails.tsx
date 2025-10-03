@@ -17,7 +17,7 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
     // NOTE: Removed min-h-screen/flex/justify-center as the parent App component handles this
     <div className="w-full"> 
       
-      {/* 🌟 Key Change 1: Main Card Styling - White, highly rounded, large shadow with teal hue */}
+      {/*  Key Change 1: Main Card Styling - White, highly rounded, large shadow with teal hue */}
       <div className="w-full bg-white rounded-3xl shadow-xl p-6 sm:p-8 transform transition duration-500 hover:shadow-2xl hover:shadow-teal-200/50">
         
         {/* --- Top Navigation/Action Bar --- */}
@@ -36,7 +36,7 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
 
           {/* Regenerate Plan Button */}
           <button
-            // 🌟 Key Change 2: Clean, secondary button style
+            //  Key Change 2: Clean, secondary button style
             className="px-4 py-2 border border-teal-300 rounded-full text-teal-600 bg-teal-50 hover:bg-teal-100 transition duration-200 font-medium text-sm shadow-sm"
             onClick={onRegenerate}
           >
@@ -46,11 +46,11 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
         
         {/* --- Benefit Information --- */}
         <div className="mb-6">
-          {/* 🌟 Key Change 3: Main Title with Teal Accent */}
+          {/*  Key Change 3: Main Title with Teal Accent */}
           <h2 className="text-3xl font-extrabold text-teal-700 mb-1 tracking-tight">
             {benefit.title}
           </h2>
-          {/* 🌟 Key Change 4: Coverage Highlight */}
+          {/*  Key Change 4: Coverage Highlight */}
           <p className="inline-block px-3 py-1 mb-3 text-sm font-semibold text-white bg-green-500 rounded-full shadow-md">
             Coverage: {benefit.coverage}
           </p>
@@ -62,7 +62,7 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
         {/* --- Action Plan Section --- */}
         <div className="mt-8 pt-6 border-t border-gray-100">
           <div className="flex items-center justify-between mb-4">
-            {/* 🌟 Key Change 5: Section Header */}
+            {/*  Key Change 5: Section Header */}
             <h3 className="font-extrabold text-xl text-gray-800 flex items-center gap-2">
               <span className="text-teal-500">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -75,7 +75,7 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
             {/* Collapse/Expand Button */}
             {steps && (
               <button
-                // 🌟 Key Change 6: Clean, tertiary button style for a less critical action
+                // Key Change 6: Clean, tertiary button style for a less critical action
                 className="px-3 py-1 text-sm text-teal-600 hover:text-teal-800 transition font-medium"
                 onClick={() => setExpanded((prev) => !prev)}
               >
@@ -98,7 +98,7 @@ const BenefitDetails: React.FC<Props> = ({ benefit, steps, onRegenerate, onBack 
               {steps.map((step, idx) => (
                 <li 
                   key={idx} 
-                  // 🌟 Key Change 7: Step list item style - Soft background, rounded, with a subtle left border highlight
+                  //  Key Change 7: Step list item style - Soft background, rounded, with a subtle left border highlight
                   className="bg-gray-50 border-l-4 border-teal-400 rounded-lg p-4 text-gray-700 shadow-sm transition duration-300 hover:bg-gray-100"
                 >
                   <span className="font-bold text-teal-600 text-lg mr-2">Step {idx + 1}</span>
