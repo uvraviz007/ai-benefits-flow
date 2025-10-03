@@ -1,11 +1,11 @@
 
-const OPENROUTER_API_KEY = 'YOUR_API_KEY'; // Replace with your OpenRouter API key
+const OPENROUTER_API_KEY = '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'; // Replace with your OpenRouter API key
 
 export async function getClassification(userInput: string) {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${'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'}`,
+      'Authorization': `Bearer ${'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'}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
@@ -26,7 +26,12 @@ export async function getClassification(userInput: string) {
       ]
     })
   });
-  return await response.json();
+  const jsontext = await response.json();
+    // console.log('[DEBUG] getClassification API response:', jsontext);
+    // if (jsontext && jsontext.choices && jsontext.choices[0]?.message?.content) {
+    //   console.log('[DEBUG] LLM message content:', jsontext.choices[0].message.content);
+    // }
+  return jsontext;
 }
 
 export async function getActionPlan(selectedBenefit: string) {
@@ -54,5 +59,10 @@ export async function getActionPlan(selectedBenefit: string) {
       ]
     })
   });
-  return await response.json();
+  const jsontext = await response.json();
+    // console.log('[DEBUG] getActionPlan API response:', jsontext);
+    // if (jsontext && jsontext.choices && jsontext.choices[0]?.message?.content) {
+    //   console.log('[DEBUG] LLM message content:', jsontext.choices[0].message.content);
+    // }
+  return jsontext;
 }
