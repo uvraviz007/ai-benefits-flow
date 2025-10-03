@@ -13,7 +13,7 @@ export async function getClassification(userInput: string) {
         {
           role: 'system',
           content: `You are a helpful assistant for a healthcare benefits app. 
-Classify the user's health issue into one category: Dental, Mental Health, Vision, OPD only else nothing . 
+Classify the user's health issue into one category: Dental, Mental Health, Vision, OPD  else nothing . 
 Then create 2 to 4 mock benefit cards with fields: title, coverage, description. 
 Finally, provide a 3-step action plan for each benefit. 
 Return the result strictly in this JSON format:
