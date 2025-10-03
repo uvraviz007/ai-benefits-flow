@@ -35,7 +35,7 @@ This app uses AI to classify user health queries into allowed categories (Dental
 
 ## Screenshots
 
-| Query Input Screen | Category Step | Benefit Cards | Dark Mode Toggle |
+| Query Input Screen | Category Step | Benefit Cards | Steps Card |
 |-------------------|--------------|--------------|------------------|
 | ![Query Input](images/screen1.png) | ![Category Step](images/screen2.png) | ![Benefit Cards](images/screen3.png) | ![Steps Card](images/screen4.png) |
 
