@@ -1,4 +1,4 @@
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 
 export async function getClassification(userInput: string) {
   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
