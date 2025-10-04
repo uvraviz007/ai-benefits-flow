@@ -74,5 +74,5 @@ This app uses AI to classify user health queries into allowed categories (Dental
 
 ---
 
-
+Deployed on Netlify: https://ai-w.netlify.app/
 
